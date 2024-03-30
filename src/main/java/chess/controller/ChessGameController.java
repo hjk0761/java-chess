@@ -114,10 +114,11 @@ public class ChessGameController {
     private void save() {
         ChessBoardDto chessBoardDto = ChessBoardDto.of(chessGame.getBoard().values().stream().toList());
         chessBoardDto.getPieces().forEach(chessBoardDao::addPiece);
+        chessBoardDao.addTurn(chessGame.getTurn());
     }
 
     private void load() {
         ChessBoardToBoardDto chessBoardToBoardDto = ChessBoardToBoardDto.of(chessBoardDao.findAll());
-        chessGame = new ChessGame(new Board(chessBoardToBoardDto.getPieces()), Team.WHITE);
+        chessGame = new ChessGame(new Board(chessBoardToBoardDto.getPieces()), chessBoardDao.findTurn());
     }
 }
