@@ -30,3 +30,10 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Docker DB ###
+docker/db/
+/docker/db/
+
+### pem ###
+*.pem
