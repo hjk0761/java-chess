@@ -3,8 +3,6 @@ package chess.domain.board;
 import chess.domain.piece.King;
 import chess.domain.piece.Queen;
 import chess.domain.piece.Rook;
-import java.util.stream.Stream;
-
 import chess.domain.pieceInfo.PieceInfo;
 import chess.domain.pieceInfo.Position;
 import chess.domain.pieceInfo.Team;
@@ -14,6 +12,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 public class BoardTest {
 

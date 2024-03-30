@@ -1,21 +1,22 @@
 package chess.domain.db;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import java.sql.SQLException;
 import java.util.List;
 
-class ChessBoardDaoTest {
+import static org.assertj.core.api.Assertions.assertThat;
+
+class ChessBoardEntityDaoTest {
 
     private final ChessBoardDao chessBoardDao = new ChessBoardDao();
 
     @BeforeEach
     @Test
     public void addPiece() {
-        final var piece = new ChessBoard("a1", "WHITE", "KING");
+        final var piece = new ChessBoardEntity("a1", "WHITE", "KING");
         chessBoardDao.addPiece(piece);
     }
 
@@ -32,14 +33,14 @@ class ChessBoardDaoTest {
     public void findByPosition() {
         final var piece = chessBoardDao.findByPosition("a1");
 
-        assertThat(piece).isEqualTo(new ChessBoard("a1", "WHITE", "KING"));
+        assertThat(piece).isEqualTo(new ChessBoardEntity("a1", "WHITE", "KING"));
     }
 
     @Test
     public void findAll() {
         final var piece = chessBoardDao.findAll();
 
-        assertThat(piece).isEqualTo(List.of(new ChessBoard("a1", "WHITE", "KING")));
+        assertThat(piece).isEqualTo(List.of(new ChessBoardEntity("a1", "WHITE", "KING")));
     }
 
     @Test
