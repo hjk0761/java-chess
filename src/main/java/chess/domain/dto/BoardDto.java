@@ -1,9 +1,9 @@
 package chess.domain.dto;
 
-import chess.domain.pieceInfo.PieceInfo;
-import chess.domain.pieceInfo.Position;
 import chess.domain.piece.Piece;
 import chess.domain.piece.PieceType;
+import chess.domain.pieceInfo.PieceInfo;
+import chess.domain.pieceInfo.Position;
 
 import java.util.ArrayList;
 import java.util.Collections;

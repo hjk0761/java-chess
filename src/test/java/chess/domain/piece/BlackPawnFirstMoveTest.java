@@ -3,12 +3,13 @@ package chess.domain.piece;
 import chess.domain.pieceInfo.PieceInfo;
 import chess.domain.pieceInfo.Position;
 import chess.domain.pieceInfo.Team;
-import java.util.stream.Stream;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 public class BlackPawnFirstMoveTest {
 
