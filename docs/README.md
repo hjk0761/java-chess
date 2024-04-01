@@ -7,32 +7,27 @@
 docker-compose -p chess up -d
 ```
 
-2. 데이터베이스 생성
-```mysql
-CREATE DATABASE chess DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-```
+2. `Application` 실행
 
-3. 테이블 생성
+0. 테이블 스키마
 ```mysql
 USE chess;
 
-CREATE TABLE chessBoard
+CREATE TABLE chess_board
 (
     position    VARCHAR(5) NOT NULL,
     team        VARCHAR(10) NOT NULL,
     type        VARCHAR(10) NOT NULL,
-    PRIMARY KEY position
+    PRIMARY KEY (position)
 );
 
-CREATE TABLE gameInfo
+CREATE TABLE game_infos
 (
     game_id INT NOT NULL,
     turn    VARCHAR(5) NOT NULL,
-    PRIMARY KEY game_id
+    PRIMARY KEY (game_id)
 );
 ```
-
-4. `Application` 실행
 
 # 3단계 - 승패 및 점수
 
