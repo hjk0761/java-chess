@@ -91,11 +91,12 @@ public class ChessBoardDao {
     }
 
     public void addTurn(Team turn) {
-        final var query = "INSERT INTO gameInfo VALUES(?) ON DUPLICATE KEY UPDATE turn = ?";
+        final var query = "INSERT INTO gameInfo VALUES(?, ?) ON DUPLICATE KEY UPDATE turn = ?";
         try (final var connection = getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, turn.name());
+            preparedStatement.setInt(1, 1);
             preparedStatement.setString(2, turn.name());
+            preparedStatement.setString(3, turn.name());
             preparedStatement.execute();
         } catch (final SQLException e) {
             throw new RuntimeException(e);
@@ -103,7 +104,7 @@ public class ChessBoardDao {
     }
 
     public Team findTurn() {
-        final var query = "SELECT * FROM gameInfo";
+        final var query = "SELECT turn FROM gameInfo WHERE game_id = 1";
         try (final var connection = getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
             final var resultSet = preparedStatement.executeQuery();
