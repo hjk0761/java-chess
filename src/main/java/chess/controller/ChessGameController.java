@@ -6,8 +6,8 @@ import chess.domain.chessgame.Command;
 import chess.domain.chessgame.ScoreBoard;
 import chess.domain.db.ChessBoardDao;
 import chess.domain.dto.BoardDto;
-import chess.domain.dto.BoardEntityDto;
-import chess.domain.dto.ChessBoardEntityDto;
+import chess.domain.db.BoardEntityMapper;
+import chess.domain.db.ChessBoardEntityMapper;
 import chess.domain.pieceInfo.Position;
 import chess.domain.pieceInfo.Team;
 import chess.view.InputView;
@@ -115,13 +115,13 @@ public class ChessGameController {
         if (chessGame.notStarted()) {
             throw new IllegalArgumentException("현재 상태를 저장할 수 없습니다.");
         }
-        ChessBoardEntityDto chessBoardEntityDto = ChessBoardEntityDto.of(chessGame.getBoard().values().stream().toList());
-        chessBoardEntityDto.getPieces().forEach(chessBoardDao::addPiece);
+        ChessBoardEntityMapper chessBoardEntityMapper = ChessBoardEntityMapper.of(chessGame.getBoard().values().stream().toList());
+        chessBoardEntityMapper.getPieces().forEach(chessBoardDao::addPiece);
         chessBoardDao.addTurn(chessGame.getTurn());
     }
 
     private void load() {
-        BoardEntityDto boardEntityDto = BoardEntityDto.of(chessBoardDao.findAll());
-        chessGame = new ChessGame(new Board(boardEntityDto.getPieces()), chessBoardDao.findTurn());
+        BoardEntityMapper boardEntityMapper = BoardEntityMapper.of(chessBoardDao.findAll());
+        chessGame = new ChessGame(new Board(boardEntityMapper.getPieces()), chessBoardDao.findTurn());
     }
 }

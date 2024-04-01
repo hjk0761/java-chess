@@ -1,6 +1,5 @@
-package chess.domain.dto;
+package chess.domain.db;
 
-import chess.domain.db.ChessBoardEntity;
 import chess.domain.piece.*;
 import chess.domain.pieceInfo.PieceInfo;
 import chess.domain.pieceInfo.Position;
@@ -9,16 +8,16 @@ import chess.domain.pieceInfo.Team;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoardEntityDto {
+public class BoardEntityMapper {
     private final List<Piece> pieces;
 
-    private BoardEntityDto(List<Piece> pieces) {
+    private BoardEntityMapper(List<Piece> pieces) {
         this.pieces = pieces;
     }
 
-    public static BoardEntityDto of(List<ChessBoardEntity> board) {
+    public static BoardEntityMapper of(List<ChessBoardEntity> board) {
         List<Piece> boards = makePieces(board);
-        return new BoardEntityDto(boards);
+        return new BoardEntityMapper(boards);
     }
 
     private static List<Piece> makePieces(List<ChessBoardEntity> boards) {

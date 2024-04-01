@@ -1,21 +1,20 @@
-package chess.domain.dto;
+package chess.domain.db;
 
-import chess.domain.db.ChessBoardEntity;
 import chess.domain.piece.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ChessBoardEntityDto {
+public class ChessBoardEntityMapper {
     private final List<ChessBoardEntity> pieces;
 
-    private ChessBoardEntityDto(List<ChessBoardEntity> pieces) {
+    private ChessBoardEntityMapper(List<ChessBoardEntity> pieces) {
         this.pieces = pieces;
     }
 
-    public static ChessBoardEntityDto of(List<Piece> pieces) {
+    public static ChessBoardEntityMapper of(List<Piece> pieces) {
         List<ChessBoardEntity> piece = makeChessBoard(pieces);
-        return new ChessBoardEntityDto(piece);
+        return new ChessBoardEntityMapper(piece);
     }
 
     private static List<ChessBoardEntity> makeChessBoard(List<Piece> pieces) {
