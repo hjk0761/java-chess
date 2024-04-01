@@ -112,6 +112,9 @@ public class ChessGameController {
     }
 
     private void save() {
+        if (chessGame.notStarted()) {
+            throw new IllegalArgumentException("현재 상태를 저장할 수 없습니다.");
+        }
         ChessBoardEntityDto chessBoardEntityDto = ChessBoardEntityDto.of(chessGame.getBoard().values().stream().toList());
         chessBoardEntityDto.getPieces().forEach(chessBoardDao::addPiece);
         chessBoardDao.addTurn(chessGame.getTurn());

@@ -68,7 +68,7 @@ public class ChessGame {
         }
     }
 
-    private boolean notStarted() {
+    public boolean notStarted() {
         return turn != Team.WHITE && turn != Team.BLACK;
     }
 
