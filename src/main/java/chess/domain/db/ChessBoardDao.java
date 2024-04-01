@@ -26,7 +26,7 @@ public class ChessBoardDao {
     }
 
     public void addPiece(final PieceEntity pieceEntity) {
-        final var query = "INSERT INTO chessBoard VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE team = ?, type = ?";
+        final var query = "INSERT INTO chess_board VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE team = ?, type = ?";
         try (final var connection = getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, pieceEntity.position());
@@ -41,7 +41,7 @@ public class ChessBoardDao {
     }
 
     public PieceEntity findByPosition(final String position) {
-        final var query = "SELECT * FROM chessBoard WHERE position = ?";
+        final var query = "SELECT * FROM chess_board WHERE position = ?";
         try (final var connection = getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, position);
@@ -62,7 +62,7 @@ public class ChessBoardDao {
     }
 
     public List<PieceEntity> findAll() {
-        final var query = "SELECT * FROM chessBoard";
+        final var query = "SELECT * FROM chess_board";
         final List<PieceEntity> result = new ArrayList<>();
         try (final var connection = getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
@@ -81,7 +81,7 @@ public class ChessBoardDao {
     }
 
     public void deleteAll() {
-        final var query = "DELETE FROM chessBoard";
+        final var query = "DELETE FROM chess_board";
         try (final var connection = getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.execute();
@@ -91,7 +91,7 @@ public class ChessBoardDao {
     }
 
     public void addTurn(Team turn) {
-        final var query = "INSERT INTO gameInfo VALUES(?, ?) ON DUPLICATE KEY UPDATE turn = ?";
+        final var query = "INSERT INTO game_infos VALUES(?, ?) ON DUPLICATE KEY UPDATE turn = ?";
         try (final var connection = getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, 1);
@@ -104,7 +104,7 @@ public class ChessBoardDao {
     }
 
     public Team findTurn() {
-        final var query = "SELECT turn FROM gameInfo WHERE game_id = 1";
+        final var query = "SELECT turn FROM game_infos WHERE game_id = 1";
         try (final var connection = getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
             final var resultSet = preparedStatement.executeQuery();

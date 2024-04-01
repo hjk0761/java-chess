@@ -1,6 +1,6 @@
 USE chess;
 
-CREATE TABLE chessBoard
+CREATE TABLE chess_board
 (
     position    VARCHAR(5) NOT NULL,
     team        VARCHAR(10) NOT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE chessBoard
     PRIMARY KEY (position)
 );
 
-CREATE TABLE gameInfo
+CREATE TABLE game_infos
 (
     game_id INT NOT NULL,
     turn    VARCHAR(5) NOT NULL,
