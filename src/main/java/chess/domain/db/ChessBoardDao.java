@@ -25,22 +25,22 @@ public class ChessBoardDao {
         }
     }
 
-    public void addPiece(final ChessBoardEntity chessBoardEntity) {
+    public void addPiece(final PieceEntity pieceEntity) {
         final var query = "INSERT INTO chessBoard VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE team = ?, type = ?";
         try (final var connection = getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, chessBoardEntity.position());
-            preparedStatement.setString(2, chessBoardEntity.team());
-            preparedStatement.setString(3, chessBoardEntity.type());
-            preparedStatement.setString(4, chessBoardEntity.team());
-            preparedStatement.setString(5, chessBoardEntity.type());
+            preparedStatement.setString(1, pieceEntity.position());
+            preparedStatement.setString(2, pieceEntity.team());
+            preparedStatement.setString(3, pieceEntity.type());
+            preparedStatement.setString(4, pieceEntity.team());
+            preparedStatement.setString(5, pieceEntity.type());
             preparedStatement.execute();
         } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public ChessBoardEntity findByPosition(final String position) {
+    public PieceEntity findByPosition(final String position) {
         final var query = "SELECT * FROM chessBoard WHERE position = ?";
         try (final var connection = getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
@@ -48,7 +48,7 @@ public class ChessBoardDao {
 
             final var resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return new ChessBoardEntity(
+                return new PieceEntity(
                         resultSet.getString("position"),
                         resultSet.getString("team"),
                         resultSet.getString("type")
@@ -61,14 +61,14 @@ public class ChessBoardDao {
         return null;
     }
 
-    public List<ChessBoardEntity> findAll() {
+    public List<PieceEntity> findAll() {
         final var query = "SELECT * FROM chessBoard";
-        final List<ChessBoardEntity> result = new ArrayList<>();
+        final List<PieceEntity> result = new ArrayList<>();
         try (final var connection = getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
             final var resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                result.add(new ChessBoardEntity(
+                result.add(new PieceEntity(
                         resultSet.getString("position"),
                         resultSet.getString("team"),
                         resultSet.getString("type")

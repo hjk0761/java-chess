@@ -18,23 +18,23 @@ public class FakeChessBoardDao extends ChessBoardDao{
     }
 
     @Override
-    public void addPiece(ChessBoardEntity chessBoardEntity) {
-        board.put(chessBoardEntity.position(), List.of(chessBoardEntity.team(), chessBoardEntity.type()));
+    public void addPiece(PieceEntity pieceEntity) {
+        board.put(pieceEntity.position(), List.of(pieceEntity.team(), pieceEntity.type()));
     }
 
     @Override
-    public ChessBoardEntity findByPosition(String position) {
+    public PieceEntity findByPosition(String position) {
         if (board.containsKey(position)) {
-            return new ChessBoardEntity(position, board.get(position).get(0), board.get(position).get(1));
+            return new PieceEntity(position, board.get(position).get(0), board.get(position).get(1));
         }
         return null;
     }
 
     @Override
-    public List<ChessBoardEntity> findAll() {
-        List<ChessBoardEntity> all = new ArrayList<>();
+    public List<PieceEntity> findAll() {
+        List<PieceEntity> all = new ArrayList<>();
         board.forEach((key, value) -> all.add(
-                new ChessBoardEntity(key, value.get(0), value.get(1))));
+                new PieceEntity(key, value.get(0), value.get(1))));
         return all;
     }
 

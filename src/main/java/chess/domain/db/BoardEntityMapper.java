@@ -15,22 +15,22 @@ public class BoardEntityMapper {
         this.pieces = pieces;
     }
 
-    public static BoardEntityMapper of(List<ChessBoardEntity> board) {
+    public static BoardEntityMapper of(List<PieceEntity> board) {
         List<Piece> boards = makePieces(board);
         return new BoardEntityMapper(boards);
     }
 
-    private static List<Piece> makePieces(List<ChessBoardEntity> boards) {
+    private static List<Piece> makePieces(List<PieceEntity> boards) {
         List<Piece> newBoard = new ArrayList<>();
         boards.forEach(board -> newBoard.add(piece(board)));
         return newBoard;
     }
 
-    private static Position position(ChessBoardEntity board) {
+    private static Position position(PieceEntity board) {
         return Position.of(board.position());
     }
 
-    private static Piece piece(ChessBoardEntity board) {
+    private static Piece piece(PieceEntity board) {
         List<Piece> allPieces = pieces(position(board), Team.valueOf(board.team()));
         return allPieces.stream()
                 .map(Piece::rearrangeStrategyByPosition)

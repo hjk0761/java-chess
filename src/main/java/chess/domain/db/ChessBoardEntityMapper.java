@@ -6,25 +6,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChessBoardEntityMapper {
-    private final List<ChessBoardEntity> pieces;
+    private final List<PieceEntity> pieces;
 
-    private ChessBoardEntityMapper(List<ChessBoardEntity> pieces) {
+    private ChessBoardEntityMapper(List<PieceEntity> pieces) {
         this.pieces = pieces;
     }
 
     public static ChessBoardEntityMapper of(List<Piece> pieces) {
-        List<ChessBoardEntity> piece = makeChessBoard(pieces);
+        List<PieceEntity> piece = makeChessBoard(pieces);
         return new ChessBoardEntityMapper(piece);
     }
 
-    private static List<ChessBoardEntity> makeChessBoard(List<Piece> pieces) {
-        List<ChessBoardEntity> pieceSet = new ArrayList<>();
+    private static List<PieceEntity> makeChessBoard(List<Piece> pieces) {
+        List<PieceEntity> pieceSet = new ArrayList<>();
         pieces.forEach(piece -> pieceSet.add(
-                new ChessBoardEntity(piece.getPosition().getPosition(), piece.getTeam().name(), piece.getType().name())));
+                new PieceEntity(piece.getPosition().getPosition(), piece.getTeam().name(), piece.getType().name())));
         return pieceSet;
     }
 
-    public List<ChessBoardEntity> getPieces() {
+    public List<PieceEntity> getPieces() {
         return pieces;
     }
 }
