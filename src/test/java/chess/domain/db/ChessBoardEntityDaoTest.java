@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class ChessBoardEntityDaoTest {
 
-    private final ChessBoardDao chessBoardDao = new ChessBoardDao();
+    private final FakeChessBoardDao chessBoardDao = new FakeChessBoardDao();
 
     @BeforeEach
     @Test
