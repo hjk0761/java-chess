@@ -118,10 +118,12 @@ public class ChessGameController {
         ChessBoardEntityMapper chessBoardEntityMapper = ChessBoardEntityMapper.of(chessGame.getBoard().values().stream().toList());
         chessBoardEntityMapper.getPieces().forEach(chessBoardDao::addPiece);
         chessBoardDao.addTurn(chessGame.getTurn());
+        OutputView.printSaveMessage();
     }
 
     private void load() {
         BoardEntityMapper boardEntityMapper = BoardEntityMapper.of(chessBoardDao.findAll());
         chessGame = new ChessGame(new Board(boardEntityMapper.getPieces()), chessBoardDao.findTurn());
+        OutputView.printLoadMessage(BoardDto.of(chessGame.getBoard()), chessGame.getTurn());
     }
 }

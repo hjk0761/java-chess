@@ -52,4 +52,14 @@ public class OutputView {
         System.out.printf("> %s 점수 : %f%n", Team.BLACK, blackScore);
         System.out.printf("> 두 진영이 같은 점수입니다.%n");
     }
+
+    public static void printSaveMessage() {
+        System.out.println("현재 상태가 저장되었습니다.");
+    }
+
+    public static void printLoadMessage(BoardDto boardDto, Team turn) {
+        System.out.println("저장된 상태를 불러옵니다.");
+        printBoard(boardDto);
+        System.out.printf("%s의 차례입니다.", turn.name());
+    }
 }
