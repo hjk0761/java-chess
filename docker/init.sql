@@ -1,6 +1,6 @@
 USE chess;
 
-CREATE TABLE chess_board
+CREATE TABLE pieces
 (
     position    VARCHAR(5) NOT NULL,
     team        VARCHAR(10) NOT NULL,

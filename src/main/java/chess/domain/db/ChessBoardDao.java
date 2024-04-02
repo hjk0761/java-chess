@@ -24,7 +24,7 @@ public class ChessBoardDao {
     }
 
     public void addPiece(final PieceEntity pieceEntity) {
-        final String query = "INSERT INTO chess_board VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE team = ?, type = ?";
+        final String query = "INSERT INTO pieces VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE team = ?, type = ?";
         try (final Connection connection = getConnection();
              final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, pieceEntity.position());
@@ -39,7 +39,7 @@ public class ChessBoardDao {
     }
 
     public PieceEntity findByPosition(final String position) {
-        final String query = "SELECT * FROM chess_board WHERE position = ?";
+        final String query = "SELECT * FROM pieces WHERE position = ?";
         try (final Connection connection = getConnection();
              final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, position);
@@ -60,7 +60,7 @@ public class ChessBoardDao {
     }
 
     public List<PieceEntity> findAll() {
-        final String query = "SELECT * FROM chess_board";
+        final String query = "SELECT * FROM pieces";
         final List<PieceEntity> result = new ArrayList<>();
         try (final Connection connection = getConnection();
              final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -79,7 +79,7 @@ public class ChessBoardDao {
     }
 
     public void deleteAll() {
-        final String query = "DELETE FROM chess_board";
+        final String query = "DELETE FROM pieces";
         try (final Connection connection = getConnection();
              final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.execute();
