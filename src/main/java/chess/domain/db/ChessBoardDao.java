@@ -88,7 +88,7 @@ public class ChessBoardDao {
         }
     }
 
-    public void addTurn(Team turn) {
+    public void addTurn(final Team turn) {
         final String query = "INSERT INTO game_infos VALUES(?, ?) ON DUPLICATE KEY UPDATE turn = ?";
         try (final Connection connection = getConnection();
              final PreparedStatement preparedStatement = connection.prepareStatement(query)) {

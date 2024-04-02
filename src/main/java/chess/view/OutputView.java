@@ -57,7 +57,7 @@ public class OutputView {
         System.out.println("현재 상태가 저장되었습니다.");
     }
 
-    public static void printLoadMessage(BoardDto boardDto, Team turn) {
+    public static void printLoadMessage(final BoardDto boardDto, final Team turn) {
         System.out.println("저장된 상태를 불러옵니다.");
         printBoard(boardDto);
         System.out.printf("%s의 차례입니다.", turn.name());
