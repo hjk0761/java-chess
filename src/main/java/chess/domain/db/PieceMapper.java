@@ -8,16 +8,13 @@ import chess.domain.pieceInfo.Team;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoardEntityMapper {
-    private final List<Piece> pieces;
+public class PieceMapper {
 
-    private BoardEntityMapper(List<Piece> pieces) {
-        this.pieces = pieces;
-    }
-
-    public static BoardEntityMapper of(List<PieceEntity> board) {
-        List<Piece> boards = makePieces(board);
-        return new BoardEntityMapper(boards);
+    public static List<Piece> toPieces(List<PieceEntity> pieceEntities) {
+        if (pieceEntities.isEmpty()) {
+            throw new IllegalArgumentException("이전에 save 한 정보가 없습니다.");
+        }
+        return makePieces(pieceEntities);
     }
 
     private static List<Piece> makePieces(List<PieceEntity> boards) {
@@ -51,10 +48,14 @@ public class BoardEntityMapper {
         );
     }
 
-    public List<Piece> getPieces() {
-        if (pieces.isEmpty()) {
-            throw new IllegalArgumentException("이전에 save 한 정보가 없습니다.");
-        }
-        return pieces;
+    public static List<PieceEntity> toPieceEntities(List<Piece> pieces) {
+        return makePieceEntities(pieces);
+    }
+
+    private static List<PieceEntity> makePieceEntities(List<Piece> pieces) {
+        List<PieceEntity> pieceSet = new ArrayList<>();
+        pieces.forEach(piece -> pieceSet.add(
+                new PieceEntity(piece.getPosition().getPosition(), piece.getTeam().name(), piece.getType().name())));
+        return pieceSet;
     }
 }

@@ -6,12 +6,14 @@ import chess.domain.chessgame.Command;
 import chess.domain.chessgame.ScoreBoard;
 import chess.domain.db.ChessBoardDao;
 import chess.domain.dto.BoardDto;
-import chess.domain.db.BoardEntityMapper;
-import chess.domain.db.ChessBoardEntityMapper;
+import chess.domain.db.PieceMapper;
+import chess.domain.piece.Piece;
 import chess.domain.pieceInfo.Position;
 import chess.domain.pieceInfo.Team;
 import chess.view.InputView;
 import chess.view.OutputView;
+
+import java.util.List;
 
 import static chess.domain.chessgame.CommandType.*;
 
@@ -115,15 +117,14 @@ public class ChessGameController {
         if (chessGame.notStarted()) {
             throw new IllegalArgumentException("현재 상태를 저장할 수 없습니다.");
         }
-        ChessBoardEntityMapper chessBoardEntityMapper = ChessBoardEntityMapper.of(chessGame.getBoard().values().stream().toList());
-        chessBoardEntityMapper.getPieces().forEach(chessBoardDao::addPiece);
+        PieceMapper.toPieceEntities(chessGame.getBoard().values().stream().toList()).forEach(chessBoardDao::addPiece);
         chessBoardDao.addTurn(chessGame.getTurn());
         OutputView.printSaveMessage();
     }
 
     private void load() {
-        BoardEntityMapper boardEntityMapper = BoardEntityMapper.of(chessBoardDao.findAll());
-        chessGame = new ChessGame(new Board(boardEntityMapper.getPieces()), chessBoardDao.findTurn());
+        List<Piece> pieces = PieceMapper.toPieces(chessBoardDao.findAll());
+        chessGame = new ChessGame(new Board(pieces), chessBoardDao.findTurn());
         OutputView.printLoadMessage(BoardDto.of(chessGame.getBoard()), chessGame.getTurn());
     }
 }
