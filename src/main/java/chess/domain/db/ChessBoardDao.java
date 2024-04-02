@@ -2,9 +2,7 @@ package chess.domain.db;
 
 import chess.domain.pieceInfo.Team;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,9 +24,9 @@ public class ChessBoardDao {
     }
 
     public void addPiece(final PieceEntity pieceEntity) {
-        final var query = "INSERT INTO chess_board VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE team = ?, type = ?";
-        try (final var connection = getConnection();
-             final var preparedStatement = connection.prepareStatement(query)) {
+        final String query = "INSERT INTO chess_board VALUES(?, ?, ?) ON DUPLICATE KEY UPDATE team = ?, type = ?";
+        try (final Connection connection = getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, pieceEntity.position());
             preparedStatement.setString(2, pieceEntity.team());
             preparedStatement.setString(3, pieceEntity.type());
@@ -41,12 +39,12 @@ public class ChessBoardDao {
     }
 
     public PieceEntity findByPosition(final String position) {
-        final var query = "SELECT * FROM chess_board WHERE position = ?";
-        try (final var connection = getConnection();
-             final var preparedStatement = connection.prepareStatement(query)) {
+        final String query = "SELECT * FROM chess_board WHERE position = ?";
+        try (final Connection connection = getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, position);
 
-            final var resultSet = preparedStatement.executeQuery();
+            final ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return new PieceEntity(
                         resultSet.getString("position"),
@@ -62,11 +60,11 @@ public class ChessBoardDao {
     }
 
     public List<PieceEntity> findAll() {
-        final var query = "SELECT * FROM chess_board";
+        final String query = "SELECT * FROM chess_board";
         final List<PieceEntity> result = new ArrayList<>();
-        try (final var connection = getConnection();
-             final var preparedStatement = connection.prepareStatement(query)) {
-            final var resultSet = preparedStatement.executeQuery();
+        try (final Connection connection = getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            final ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 result.add(new PieceEntity(
                         resultSet.getString("position"),
@@ -81,9 +79,9 @@ public class ChessBoardDao {
     }
 
     public void deleteAll() {
-        final var query = "DELETE FROM chess_board";
-        try (final var connection = getConnection();
-             final var preparedStatement = connection.prepareStatement(query)) {
+        final String query = "DELETE FROM chess_board";
+        try (final Connection connection = getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.execute();
         } catch (final SQLException e) {
             throw new RuntimeException(e);
@@ -91,9 +89,9 @@ public class ChessBoardDao {
     }
 
     public void addTurn(Team turn) {
-        final var query = "INSERT INTO game_infos VALUES(?, ?) ON DUPLICATE KEY UPDATE turn = ?";
-        try (final var connection = getConnection();
-             final var preparedStatement = connection.prepareStatement(query)) {
+        final String query = "INSERT INTO game_infos VALUES(?, ?) ON DUPLICATE KEY UPDATE turn = ?";
+        try (final Connection connection = getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setInt(1, 1);
             preparedStatement.setString(2, turn.name());
             preparedStatement.setString(3, turn.name());
@@ -104,10 +102,10 @@ public class ChessBoardDao {
     }
 
     public Team findTurn() {
-        final var query = "SELECT turn FROM game_infos WHERE game_id = 1";
-        try (final var connection = getConnection();
-             final var preparedStatement = connection.prepareStatement(query)) {
-            final var resultSet = preparedStatement.executeQuery();
+        final String query = "SELECT turn FROM game_infos WHERE game_id = 1";
+        try (final Connection connection = getConnection();
+             final PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            final ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return Team.valueOf(resultSet.getString("turn"));
             }
